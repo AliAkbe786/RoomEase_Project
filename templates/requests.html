@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Roommate Requests</title>
+    <style>
+        .request-card {
+            border: 1px solid #ccc;
+            margin: 10px;
+            padding: 15px;
+        }
+        .button-group {
+            margin-top: 10px;
+        }
+        .accept {
+            background-color: green;
+            color: white;
+            padding: 5px 10px;
+            margin-right: 10px;
+        }
+        .reject {
+            background-color: red;
+            color: white;
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Roommate Requests</h1>
+    
+    {% if not requests %}
+    <p>No pending requests</p>
+    {% endif %}
+    
+    {% for request in requests %}
+    <div class="request-card">
+        <h2>{{ request.name }}</h2>
+        <p>Matric Number: {{ request.matric_number }}</p>
+        <p>Age: {{ request.age }}</p>
+        <p>Semester: {{ request.semester }}</p>
+        <p>Phone: {{ request.phone_number }}</p>
+        <p>Sleep Schedule: {{ request.sleep_schedule }}</p>
+        <p>Cleanliness: {{ request.cleanliness }}</p>
+        <p>Study Environment: {{ request.study_environment }}</p>
+        <p>Smoking Preference: {{ request.smoking_preference }}</p>
+        <p>Hobbies: {{ request.hobbies }}</p>
+        <p>Social Level: {{ request.extroversion_level }}</p>
+        <p>Conflict Tolerance: {{ request.conflict_tolerance }}</p>
+        <p>Expected Cleanliness: {{ request.roommate_cleanliness }}</p>
+        
+        <div class="button-group">
+            <button class="accept" onclick="handleRequest('accept', '{{ request.matric_number }}')">Accept</button>
+            <button class="reject" onclick="handleRequest('reject', '{{ request.matric_number }}')">Reject</button>
+        </div>
+    </div>
+    {% endfor %}
+    
+    <script>
+    function handleRequest(action, matricNumber) {
+        fetch('/handle_request', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `action=${action}&matric_number=${matricNumber}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.message) {
+                alert(data.message);
+                location.reload();
+            } else {
+                alert(data.error || 'An error occurred');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred');
+        });
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoomEase - Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <div class="min-h-screen py-8">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            {% if welcome_message %}
+            <h1 class="text-2xl font-bold text-gray-900 text-center mb-4">{{ welcome_message }}</h1>
+            {% endif %}
+            <h2 class="text-4xl font-bold text-gray-900 text-center mb-8">Profile Page</h2>
+
+            <!-- User Profile -->
+            <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                <h3 class="text-2xl font-bold text-gray-900 mb-6">Your Profile</h3>
+                <div class="space-y-6">
+                    <div class="flex justify-between items-start">
+                        <div class="space-y-1">
+                            <h3 class="text-2xl font-semibold text-gray-900">{{ user_profile['name'] }}</h3>
+                            <p class="text-gray-600">Age: {{ user_profile['age'] }}</p>
+                            <p class="text-gray-600">Semester: {{ user_profile['semester'] }}</p>
+                            <p class="text-gray-600">Phone Number: {{ user_profile['phone_number'] }}</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-xl p-6 mb-6">
+                        <h4 class="font-medium text-gray-900 mb-4">Roommate Preference Summary</h4>
+                        <p class="text-gray-600">
+                            {{ user_summary if user_summary else "Preference summary not available." }}
+                        </p>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-xl p-6">
+                        <h4 class="font-medium text-gray-900 mb-4">Roommate Preferences</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <p class="text-gray-600">
+                                    <span class="font-medium">Sleep Schedule:</span><br>
+                                    {{ convert_sleep_schedule(user_profile['sleep_schedule']) }}
+                                </p>
+                                <p class="text-gray-600">
+                                    <span class="font-medium">Cleanliness Level:</span><br>
+                                    {{ convert_cleanliness(user_profile['cleanliness']) }}
+                                </p>
+                                <p class="text-gray-600">
+                                    <span class="font-medium">Study Environment:</span><br>
+                                    {{ convert_study_environment(user_profile['study_environment']) }}
+                                </p>
+                                <p class="text-gray-600">
+                                    <span class="font-medium">Smoking Preference:</span><br>
+                                    {{ convert_smoking_preference(user_profile['smoking_preference']) }}
+                                </p>
+                            </div>
+                            <div class="space-y-2">
+                                <p class="text-gray-600">
+                                    <span class="font-medium">Social Type:</span><br>
+                                    {{ convert_social_level(user_profile['extroversion_level']) }}
+                                </p>
+                                <p class="text-gray-600">
+                                    <span class="font-medium">Hobbies:</span><br>
+                                    {{ user_profile['hobbies'] }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Roommate Profile -->
+            {% if roommate_profile %}
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-2xl font-bold text-gray-900 mb-6">Your Roommate</h3>
+                <div class="space-y-6">
+                    <div class="flex justify-between items-start">
+                        <div class="space-y-1">
+                            <h3 class="text-2xl font-semibold text-gray-900">{{ roommate_profile['name'] }}</h3>
+                            <p class="text-gray-600">Age: {{ roommate_profile['age'] }}</p>
+                            <p class="text-gray-600">Semester: {{ roommate_profile['semester'] }}</p>
+                            <p class="text-gray-600">Phone Number: {{ roommate_profile['phone_number'] }}</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-xl p-6 mb-6">
+                        <h4 class="font-medium text-gray-900 mb-4">Roommate Preference Summary</h4>
+                        <p class="text-gray-600">
+                            {{ roommate_summary if roommate_summary else "Preference summary not available." }}
+                        </p>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-xl p-6">
+                        <h4 class="font-medium text-gray-900 mb-4">Roommate Preferences</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <p class="text-gray-600">
+                                    <span class="font-medium">Sleep Schedule:</span><br>
+                                    {{ convert_sleep_schedule(roommate_profile['sleep_schedule']) }}
+                                </p>
+                                <p class="text-gray-600">
+                                    <span class="font-medium">Cleanliness Level:</span><br>
+                                    {{ convert_cleanliness(roommate_profile['cleanliness']) }}
+                                </p>
+                                <p class="text-gray-600">
+                                    <span class="font-medium">Study Environment:</span><br>
+                                    {{ convert_study_environment(roommate_profile['study_environment']) }}
+                                </p>
+                                <p class="text-gray-600">
+                                    <span class="font-medium">Smoking Preference:</span><br>
+                                    {{ convert_smoking_preference(roommate_profile['smoking_preference']) }}
+                                </p>
+                            </div>
+                            <div class="space-y-2">
+                                <p class="text-gray-600">
+                                    <span class="font-medium">Social Type:</span><br>
+                                    {{ convert_social_level(roommate_profile['extroversion_level']) }}
+                                </p>
+                                <p class="text-gray-600">
+                                    <span class="font-medium">Hobbies:</span><br>
+                                    {{ roommate_profile['hobbies'] }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

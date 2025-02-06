@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoomEase - Roommate Preferences</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <div class="min-h-screen py-8 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-2xl mx-auto">
+            <div class="bg-white shadow-lg rounded-lg p-6 mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6">Roommate Preferences Questionnaire</h2>
+                
+                {% if error %}
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                    <span class="block sm:inline">{{ error }}</span>
+                </div>
+                {% endif %}
+
+                <form method="POST" class="space-y-8">
+                    <!-- Sleep Schedule -->
+                    <div class="space-y-4">
+                        <label class="block text-lg font-medium text-gray-900">
+                            What's your typical sleep schedule?
+                        </label>
+                        <div class="grid grid-cols-1 gap-3">
+                            {% for value, label in [
+                                (1, "Very late (after midnight)"),
+                                (2, "Late (11 PM - 12 AM)"),
+                                (3, "Moderate (10 PM - 11 PM)"),
+                                (4, "Early (9 PM - 10 PM)"),
+                                (5, "Very early (before 9 PM)")
+                            ] %}
+                            <label class="flex items-center p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                                <input type="radio" name="sleep_schedule" value="{{ value }}" 
+                                       class="h-4 w-4 text-blue-600" required>
+                                <span class="ml-3">{{ label }}</span>
+                            </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Cleanliness -->
+                    <div class="space-y-4">
+                        <label class="block text-lg font-medium text-gray-900">
+                            How would you rate your cleanliness?
+                        </label>
+                        <div class="grid grid-cols-1 gap-3">
+                            {% for value, label in [
+                                (1, "Very messy"),
+                                (2, "Somewhat messy"),
+                                (3, "Neutral"),
+                                (4, "Somewhat clean"),
+                                (5, "Very clean")
+                            ] %}
+                            <label class="flex items-center p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                                <input type="radio" name="cleanliness" value="{{ value }}" 
+                                       class="h-4 w-4 text-blue-600" required>
+                                <span class="ml-3">{{ label }}</span>
+                            </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Study Environment -->
+                    <div class="space-y-4">
+                        <label class="block text-lg font-medium text-gray-900">
+                            What's your preferred study environment?
+                        </label>
+                        <div class="grid grid-cols-1 gap-3">
+                            {% for value, label in [
+                                (1, "Very noisy"),
+                                (2, "Somewhat noisy"),
+                                (3, "Neutral"),
+                                (4, "Quiet"),
+                                (5, "Very quiet")
+                            ] %}
+                            <label class="flex items-center p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                                <input type="radio" name="study_environment" value="{{ value }}" 
+                                       class="h-4 w-4 text-blue-600" required>
+                                <span class="ml-3">{{ label }}</span>
+                            </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Smoking Preference -->
+                    <div class="space-y-4">
+                        <label class="block text-lg font-medium text-gray-900">
+                            What's your smoking preference?
+                        </label>
+                        <div class="grid grid-cols-1 gap-3">
+                            {% for value, label in [
+                                (1, "No preference"),
+                                (2, "Prefer non-smoker but okay with smoker"),
+                                (3, "Neutral"),
+                                (4, "Prefer non-smoker"),
+                                (5, "Absolutely no smokers")
+                            ] %}
+                            <label class="flex items-center p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                                <input type="radio" name="smoking_preference" value="{{ value }}" 
+                                       class="h-4 w-4 text-blue-600" required>
+                                <span class="ml-3">{{ label }}</span>
+                            </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Hobbies -->
+                    <div class="space-y-4">
+                        <label class="block text-lg font-medium text-gray-900">
+                            What are your hobbies? (Select all that apply)
+                        </label>
+                        <div class="grid grid-cols-2 gap-3">
+                            {% for hobby in ["Reading", "Sports", "Music", "Gaming", "Traveling", "Cooking", "Art", "Movies"] %}
+                            <label class="flex items-center p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                                <input type="checkbox" name="hobbies[]" value="{{ hobby }}" 
+                                       class="h-4 w-4 text-blue-600">
+                                <span class="ml-3">{{ hobby }}</span>
+                            </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Social Level -->
+                    <div class="space-y-4">
+                        <label class="block text-lg font-medium text-gray-900">
+                            How social are you?
+                        </label>
+                        <div class="grid grid-cols-1 gap-3">
+                            {% for value, label in [
+                                (1, "Very introverted"),
+                                (2, "Somewhat introverted"),
+                                (3, "Balanced"),
+                                (4, "Somewhat extroverted"),
+                                (5, "Very extroverted")
+                            ] %}
+                            <label class="flex items-center p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                                <input type="radio" name="extroversion_level" value="{{ value }}" 
+                                       class="h-4 w-4 text-blue-600" required>
+                                <span class="ml-3">{{ label }}</span>
+                            </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Conflict Resolution -->
+                    <div class="space-y-4">
+                        <label class="block text-lg font-medium text-gray-900">
+                            How do you handle conflicts?
+                        </label>
+                        <div class="grid grid-cols-1 gap-3">
+                            {% for value, label in [
+                                (1, "Avoid conflict entirely"),
+                                (2, "Low tolerance for conflict"),
+                                (3, "Neutral"),
+                                (4, "Can handle some conflict"),
+                                (5, "Open to resolving conflicts")
+                            ] %}
+                            <label class="flex items-center p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                                <input type="radio" name="conflict_tolerance" value="{{ value }}" 
+                                       class="h-4 w-4 text-blue-600" required>
+                                <span class="ml-3">{{ label }}</span>
+                            </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Expected Roommate Cleanliness -->
+                    <div class="space-y-4">
+                        <label class="block text-lg font-medium text-gray-900">
+                            What level of cleanliness do you expect from your roommate?
+                        </label>
+                        <div class="grid grid-cols-1 gap-3">
+                            {% for value, label in [
+                                (1, "Very messy"),
+                                (2, "Somewhat messy"),
+                                (3, "Neutral"),
+                                (4, "Somewhat clean"),
+                                (5, "Very clean")
+                            ] %}
+                            <label class="flex items-center p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                                <input type="radio" name="roommate_cleanliness" value="{{ value }}" 
+                                       class="h-4 w-4 text-blue-600" required>
+                                <span class="ml-3">{{ label }}</span>
+                            </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="pt-6">
+                        <button type="submit"
+                                class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            Submit Preferences
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

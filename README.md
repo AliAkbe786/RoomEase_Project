@@ -9,46 +9,68 @@ A Flask application for managing roommate requests.
 
 This project is designed to be run in a Docker container. Follow the instructions below to get started.
 
+## Pulling the Docker Image from Docker Hub
+
+If you prefer to run the application directly from the Docker image hosted on Docker Hub, follow these steps:
+
 ### Prerequisites
 
-- [Docker](https://www.docker.com/get-started) installed on your machine.
-- (Optional) [Docker Compose](https://docs.docker.com/compose/install/) if you are using a `docker-compose.yml` file.
+- Ensure that you have [Docker](https://www.docker.com/get-started) installed on your machine.
 
-### Cloning the Repository
+### Pulling the Docker Image
 
-1. Clone the repository to your local machine:
+1. **Open Your Terminal**: Launch your terminal or command prompt.
 
-   ```bash
-   git clone https://github.com/YourUsername/YourRepositoryName.git
-   ```
-
-   Replace `YourUsername` and `YourRepositoryName` with your actual GitHub username and repository name.
-
-2. Navigate to the project directory:
+2. **Log in to Docker Hub** (if necessary): If the image is private, you will need to log in to your Docker Hub account. Run the following command and enter your credentials when prompted:
 
    ```bash
-   cd YourRepositoryName
+   docker login
    ```
 
-### Setting Up Credentials
-
-3. **Create Your Credentials File**: 
-   - If your application requires a `credentials.json` file, create it based on the provided `credentials.example.json` template. 
-   - Make sure to fill in the necessary details for your application.
-
-### Building the Docker Image
-
-4. Build the Docker image:
+3. **Pull the Docker Image**: Use the following command to pull the Docker image from your Docker Hub repository. Replace `your-dockerhub-username` and `your-repo-name` with your actual Docker Hub username and repository name:
 
    ```bash
-   docker build -t your-dockerhub-username/your-repo-name .
+   docker pull alia53/roomease_project
    ```
-
-   Replace `your-dockerhub-username` and `your-repo-name` with your actual Docker Hub username and repository name.
 
 ### Running the Docker Container
 
-5. Run the Docker container:
+4. **Run the Docker Container**: After pulling the image, run the following command to start the container:
+
+   ```bash
+   docker run -p 5001:5001 ## Pulling the Docker Image from Docker Hub
+
+If you prefer to run the application directly from the Docker image hosted on Docker Hub, follow these steps:
+
+### Prerequisites
+
+- Ensure that you have [Docker](https://www.docker.com/get-started) installed on your machine.
+
+### Pulling the Docker Image
+
+1. **Open Your Terminal**: Launch your terminal or command prompt.
+
+2. **Log in to Docker Hub** (if necessary): If the image is private, you will need to log in to your Docker Hub account. Run the following command and enter your credentials when prompted:
+
+   ```bash
+   docker login
+   ```
+
+3. **Pull the Docker Image**: Use the following command to pull the Docker image from your Docker Hub repository. Replace `your-dockerhub-username` and `your-repo-name` with your actual Docker Hub username and repository name:
+
+   ```bash
+   docker pull your-dockerhub-username/your-repo-name
+   ```
+
+   For example, if your Docker Hub username is `alia53` and your repository name is `roomease_project`, the command would be:
+
+   ```bash
+   docker pull alia53/roomease_project
+   ```
+
+### Running the Docker Container
+
+4. **Run the Docker Container**: After pulling the image, run the following command to start the container:
 
    ```bash
    docker run -p 5001:5001 your-dockerhub-username/your-repo-name
@@ -58,7 +80,20 @@ This project is designed to be run in a Docker container. Follow the instruction
 
 ### Accessing the Application
 
-6. Open your web browser and go to:
+5. **Open Your Web Browser**: After the container is running, open your web browser and go to:
+
+   ```
+   http://localhost:5001
+   ```
+
+   You should see the Flask application running./your-repo-name
+   ```
+
+   This command maps port **5001** on your local machine to port **5001** in the Docker container.
+
+### Accessing the Application
+
+5. **Open Your Web Browser**: After the container is running, open your web browser and go to:
 
    ```
    http://localhost:5001
@@ -66,7 +101,19 @@ This project is designed to be run in a Docker container. Follow the instruction
 
    You should see the Flask application running.
 
-## Project Structure
+### Database
+Google Sheets is used as database in this project. Below is the link to view the database:
+[https://docs.google.com/spreadsheets/d/1BzfvLFMHfbQb5x_YOFf63G4jPt02YLlvvAUQMq1M0xA/edit?usp=sharing]
+
+### How Does The Application Work?
+
+1. The student first logins the application with the IC Number and Matric Number
+2. They are then required to answer a questionaire for compatibility assessment
+3. Then they are able to request and accept roommates of their choice.
+
+(Note: The question_status column in the database changes from False to True once the student has answered the questionaire) 
+
+## Project Structure (If clone Github Repository)
 
 The project includes the following directories and files:
 
@@ -78,6 +125,9 @@ The project includes the following directories and files:
 - `.gitignore`: Specifies files to ignore in the repository, including sensitive files like `credentials.json`.
 - `README.md`: Documentation about your project.
 - `credentials.example.json`: Template for creating your own `credentials.json` file.
+
+Note:
+Create your own credentials.json and insert the credentials into the app.py to run the application.
 
 ## License
 
